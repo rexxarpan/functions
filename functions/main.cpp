@@ -1,26 +1,23 @@
 #include <iostream>
+#include <vector>
 
-void func(double a)
+void print_vec(const std::vector<double>& vec)
 {
-    std::cout << "int func(double a)" << std::endl;
+    std::cout << "Roots: ";
+    for (auto v : vec)
+    {
+        std::cout << v << " ";
+    }
+
+    std::cout << std::endl;
 }
 
-void compute_square_roots()
+std::vector <double> compute_square_roots(double a, double b, double c)
 {
-    double a = 0.0;
-    double b = 0.0;
-    double c = 0.0;
-
-    std::cin >> a;
-    std::cin >> b;
-    std::cin >> c;
-
-    //std::cout << a << b << c << std::endl;
-
     if (a == 0)
     {
         double x = -c / b;
-        std::cout << "Root " << x << std::endl;
+        return { x };
     }
     else
     {
@@ -28,9 +25,8 @@ void compute_square_roots()
         if (d == 0)
         {
             double d = b * b - 4 * a * c;
-            std::cout << "Desc " << d << std::endl;
             double x = -b / 2 * a;
-            std::cout << "Root " << x << std::endl;
+            return { x };
         }
         else
         {
@@ -38,12 +34,11 @@ void compute_square_roots()
             {
                 double x1 = (-b + std::sqrt(d)) / (2 * a);
                 double x2 = (-b - std::sqrt(d)) / (2 * a);
-                std::cout << "Root1 " << x1 << std::endl;
-                std::cout << "Root2 " << x2 << std::endl;
+                return { x1, x2 };
             }
             else
             {
-                std::cout << "Roots not found " << std::endl;
+                return {};
             }
         }
     }
@@ -53,7 +48,15 @@ int main()
 {
     for (;;)
     {
-        compute_square_roots();
+        double a = 0.0;
+        double b = 0.0;
+        double c = 0.0;
+
+        std::cin >> a;
+        std::cin >> b;
+        std::cin >> c;
+
+        print_vec(compute_square_roots(a, b, c));
 
         std::cout << "Should i continue 1/0" << std::endl;
         int flag{ 0 };
